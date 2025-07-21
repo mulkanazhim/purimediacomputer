@@ -1,0 +1,1159 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puri Media Computer - Pusat Servis & Elektronik di Bangko</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="logo.png" type="image/png">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --dark-color: #212529;
+            --light-color: #f8f9fa;
+            --success-color: #198754;
+            --danger-color: #dc3545;
+            --info-color: #0dcaf0;
+            --warning-color: #ffc107;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+        }
+
+        /* --- Animasi Scroll --- */
+        .reveal {
+            position: relative;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: 1s all ease;
+        }
+
+        .reveal.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* --- Navbar --- */
+        .navbar {
+            transition: background-color 0.4s ease-in-out, padding 0.4s ease-in-out;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        .navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        /* --- Hero Section --- */
+        #hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://t3.ftcdn.net/jpg/07/62/36/62/360_F_762366257_61VqzAKGZHjOOSjkPiDUNLShFQPBGrWK.jpg') no-repeat center center/cover;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        #hero .container {
+            position: relative;
+            z-index: 2;
+        }
+        #hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        #hero p {
+            font-size: 1.25rem;
+            font-weight: 300;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        #hero .btn {
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        #hero .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.4);
+        }
+
+        /* --- Section Styling --- */
+        section {
+            padding: 80px 0;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* --- Admin Dashboard --- */
+        #adminDashboard {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.2);
+        }
+        .stat-card .stat-icon {
+            font-size: 2.5rem;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            border-radius: 50%;
+            color: white;
+            float: right;
+        }
+        .stat-card .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+        .stat-card .stat-label {
+            font-size: 1rem;
+            color: var(--secondary-color);
+        }
+        .chart-container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+        .progress-bar {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* --- Keunggulan Section --- */
+        #keunggulan .icon-box {
+            text-align: center;
+            padding: 20px;
+        }
+        #keunggulan .icon-box i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* --- Produk & Layanan --- */
+        .filter-buttons .btn {
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        .product-card .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+        .asus-service-card {
+            border: 2px solid var(--primary-color);
+        }
+
+        /* --- Form Servis & Konsultasi --- */
+        #servis form {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        #servis .form-control:focus, #servis .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+        #servis .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        #servis .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+
+        /* --- Testimoni --- */
+        #testimoni .carousel-item img {
+            height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+        .table-hover > tbody > tr:hover > * {
+            background-color: #e9ecef;
+            color: var(--dark-color);
+        }
+        .rating .bi-star-fill {
+            color: #ffc107;
+        }
+        .review-promo {
+            background-color: #e7f1ff;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        /* --- Login Admin --- */
+        .form-signin {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        }
+
+        /* --- Kontak & Footer --- */
+        #footer {
+            background: linear-gradient(135deg, #0a183d, #0d6efd);
+            color: white;
+            padding-top: 60px;
+        }
+        #footer a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        #footer a:hover {
+            color: white;
+        }
+        #footer .social-icons a {
+            font-size: 1.5rem;
+            margin: 0 10px;
+        }
+        .copyright {
+            background-color: rgba(0,0,0,0.2);
+            padding: 15px 0;
+            margin-top: 40px;
+        }
+        
+        /* --- Alert Container --- */
+        #alert-container {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            z-index: 1056;
+            min-width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Alert Container -->
+    <div id="alert-container"></div>
+
+    <!-- Header & Navigasi -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top p-3">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="#hero">
+                    <img src="logo.png" alt="Logo Puri Media" width="30" height="30" >
+                    Puri Media Computer
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#keunggulan">Keunggulan</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#produk">Produk & Layanan</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#servis">Servis</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#testimoni">Testimoni</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#kontak">Kontak</a></li>
+                    </ul>
+                    <button id="loginAdminButton" class="btn btn-outline-light ms-lg-3" type="button">
+                        <i class="bi bi-person-circle"></i> Login Admin
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Admin Login Collapse -->
+        <div class="collapse" id="loginCollapse">
+            <div class="bg-dark p-4">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 col-lg-4">
+                            <form id="loginForm" class="form-signin text-dark">
+                                <h4 class="mb-3 fw-normal text-center">Login Admin</h4>
+                                <div class="form-floating mb-2">
+                                    <input type="email" class="form-control" id="loginEmail" placeholder="name@gmail.com" required>
+                                    <label for="loginEmail">Alamat Email</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" id="loginPassword" placeholder="Password" required>
+                                    <label for="loginPassword">Password</label>
+                                </div>
+                                <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="container reveal active">
+                <h1 class="display-3">Pusat Komputer & Elektronik Terlengkap</h1>
+                <p class="lead col-lg-8 mx-auto">Partner resmi ASUS di Bangko. Kami menyediakan penjualan, servis profesional, dan solusi IT terpercaya untuk Anda.</p>
+                <a href="#produk" class="btn btn-primary btn-lg mt-3">Jelajahi Layanan Kami</a>
+            </div>
+        </section>
+
+        <!-- Admin Dashboard Section (Hidden by default) -->
+        <section id="adminDashboard" class="d-none">
+            <div class="container">
+                <h2 class="section-title">Dasbor Admin</h2>
+                <!-- Stat Cards -->
+                <div class="row g-4 mb-5">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-primary"><i class="bi bi-people-fill"></i></div>
+                            <div id="total-visitors-value" class="stat-value">0</div>
+                            <div class="stat-label">Total Pengunjung</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-success"><i class="bi bi-geo-alt-fill"></i></div>
+                            <div id="sumatra-visitors-value" class="stat-value">0</div>
+                            <div class="stat-label">Dari Sumatra</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                         <div class="stat-card">
+                            <div class="stat-icon bg-info"><i class="bi bi-envelope-plus-fill"></i></div>
+                            <div id="newsletter-subs-value" class="stat-value">0</div>
+                            <div class="stat-label">Newsletter</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                         <div class="stat-card">
+                            <div class="stat-icon bg-warning"><i class="bi bi-tools"></i></div>
+                            <div id="service-reqs-value" class="stat-value">0</div>
+                            <div class="stat-label">Pengajuan Servis</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Visitor Analytics -->
+                    <div class="col-lg-7 mb-4">
+                        <div class="chart-container h-100">
+                            <h5>Analitik Pengunjung (Mockup)</h5>
+                            <p class="text-muted small">Distribusi geografis pengunjung website.</p>
+                            <div id="visitor-chart" class="mt-4">
+                                <!-- Chart akan di-generate oleh JS -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Newsletter Subscribers -->
+                    <div class="col-lg-5 mb-4">
+                        <div class="chart-container h-100 d-flex flex-column">
+                            <h5>Langganan Newsletter Terbaru</h5>
+                            <div class="table-responsive flex-grow-1" style="min-height: 300px;">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Tanggal</th>
+                                            <th>Email</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="newsletter-table-body">
+                                        <!-- Data akan di-generate oleh JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Requests Table -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="chart-container">
+                             <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5>Pengajuan Servis Terbaru</h5>
+                                <button id="load-more-requests" class="btn btn-sm btn-outline-primary">Lihat Semua</button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Tanggal</th>
+                                            <th>Nama</th>
+                                            <th>Email</th>
+                                            <th>Kategori</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="service-requests-table-body">
+                                        <!-- Data akan di-generate oleh JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Keunggulan Section -->
+        <section id="keunggulan" class="bg-white">
+            <div class="container">
+                <h2 class="section-title reveal">Mengapa Memilih Kami?</h2>
+                <div class="row">
+                    <div class="col-md-4 reveal">
+                        <div class="icon-box">
+                            <i class="bi bi-patch-check-fill"></i>
+                            <h4>Service Center Resmi ASUS</h4>
+                            <p>Pusat servis resmi ASUS di Bangko, menjamin penanganan ahli dan suku cadang original.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 reveal">
+                        <div class="icon-box">
+                            <i class="bi bi-wrench-adjustable-circle-fill"></i>
+                            <h4>Teknisi Kompeten & Peduli</h4>
+                            <p>Dengan keahlian tinggi dan semangat melayani, Kami tak sekadar memperbaiki perangkat—kami memastikan Anda merasa didengar dan dihargai.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 reveal">
+                        <div class="icon-box">
+                            <i class="bi bi-box-seam-fill"></i>
+                            <h4>Produk Original & Bergaransi</h4>
+                            <p>Kami hanya menjual produk asli dari brand terkemuka dengan garansi resmi yang terjamin.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Produk & Layanan -->
+        <section id="produk">
+            <div class="container">
+                <h2 class="section-title reveal">Produk & Layanan Unggulan</h2>
+                <div class="d-flex justify-content-center flex-wrap mb-5 reveal" id="filter-buttons">
+                    <button class="btn btn-primary" data-filter="all">Semua</button>
+                    <button class="btn btn-outline-primary" data-filter="servis-asus">Servis Resmi ASUS</button>
+                    <button class="btn btn-outline-primary" data-filter="laptop">Laptop</button>
+                    <button class="btn btn-outline-primary" data-filter="printer">Printer</button>
+                    <button class="btn btn-outline-primary" data-filter="elektronik">Elektronik</button>
+                    <button class="btn btn-outline-primary" data-filter="servis-umum">Servis Umum</button>
+                </div>
+                <div class="row gy-4" id="product-list">
+                    <!-- Item Produk akan di-generate di sini oleh JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Servis & Konsultasi -->
+        <section id="servis" class="bg-white">
+            <div class="container">
+                <h2 class="section-title reveal">Form Pengajuan Servis</h2>
+                <div class="row align-items-center gy-5">
+                    <div class="col-lg-6 reveal">
+                        <h3>Butuh Bantuan Ahli?</h3>
+                        <p>Tim teknisi kami siap membantu mengatasi segala permasalahan laptop, komputer, atau perangkat elektronik Anda. Dari perbaikan hardware, instalasi software, hingga pembersihan virus. Silakan isi form di samping untuk memulai proses servis.</p>
+                        <div class="video-container mt-4">
+                             <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <p class="mt-3 fst-italic text-muted">Video singkat proses servis kami.</p>
+                    </div>
+                    <div class="col-lg-6 reveal">
+                        <form id="serviceForm" class="needs-validation" novalidate>
+                            <div class="mb-3">
+                                <label for="nama" class="form-label">Nama Lengkap</label>
+                                <input type="text" class="form-control" id="nama" required>
+                                <div class="invalid-feedback">Nama tidak boleh kosong.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" required>
+                                <div class="invalid-feedback">Format email tidak valid.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="kategori" class="form-label">Kategori Layanan</label>
+                                <select class="form-select" id="kategori" required>
+                                    <option selected disabled value="">Pilih...</option>
+                                    <option>Servis Resmi ASUS (Garansi)</option>
+                                    <option>Servis Laptop/PC (Non-Garansi)</option>
+                                    <option>Servis Printer</option>
+                                    <option>Servis Elektronik Lain</option>
+                                    <option>Instalasi Software</option>
+                                </select>
+                                <div class="invalid-feedback">Silakan pilih kategori layanan.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="keluhan" class="form-label">Deskripsi Keluhan/Kerusakan</label>
+                                <textarea class="form-control" id="keluhan" rows="4" required></textarea>
+                                <div class="invalid-feedback">Mohon jelaskan keluhan Anda.</div>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Kirim Permintaan Servis</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimoni Pelanggan -->
+        <section id="testimoni">
+            <div class="container">
+                <!-- Galeri Foto Carousel -->
+                <div id="galleryCarousel" class="carousel slide mb-5 reveal" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#galleryCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#galleryCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#galleryCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4nrCjyTxry2HA9FiD6NZJjhnrVFXWd3GBsuCv3AxGd2PArtKqvouCRtMV8YO3i3RobcubGusH-aHvVbvg_0u51z1CSCJ0f9Ucq6tEnao-vf5zZuRh9oTdmsSGmyH5wiz3a5j4BIl=s680-w680-h510-rw" class="d-block w-100" alt="Suasana Toko Puri Media Komputer">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Suasana Toko yang Nyaman</h5>
+                                <p>Kami menyediakan ruang tunggu yang nyaman saat Anda menunggu perangkat diservis.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4nokQvT0kM8HzJ7YnrKKVe2Z-dDLl2LjzI8sYEEG9kmNAqew-ckHPE9UMTlBgLLzEDT8rHQDDz4yTbjiAB-r_Gxze1buXoX1uCwvTCCbMFEttOXzeL9eYJMVSu7J4v9EN1X7d2OwUw=s680-w680-h510-rw" class="d-block w-100" alt="Proses Servis oleh Teknisi Ahli">
+                             <div class="carousel-caption d-none d-md-block">
+                                <h5>Teknisi Profesional</h5>
+                                <p>Perangkat Anda ditangani oleh teknisi ahli dan berpengalaman.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4nqt1gRadSGy6Gjuh7DTAOVDxOlirtgrdwRvrkQVJYAcsZOyeuPghr8MH0Mp8kNqFRmdhyGKd_5RtUJXBiPn79I9Gqyt0WXAlnQSMzjMsJtPCf1H85Gmk_YCqZaiAQV4ZtCuNguq=s680-w680-h510-rw" class="d-block w-100" alt="Display Produk Lengkap">
+                             <div class="carousel-caption d-none d-md-block">
+                                <h5>Produk Lengkap dan Original</h5>
+                                <p>Temukan berbagai produk elektronik dan komputer original di toko kami.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#galleryCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#galleryCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+
+                <h2 class="section-title reveal">Apa Kata Pelanggan Kami</h2>
+                <div class="table-responsive reveal">
+                    <table class="table table-striped table-hover text-center">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col">Pelanggan</th>
+                                <th scope="col">Ulasan</th>
+                                <th scope="col">Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody id="testimonial-body">
+                            <!-- Data testimoni akan di-generate oleh JS -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center mt-4 p-4 rounded review-promo reveal">
+                    <p class="mb-3">Beri ulasan di Google dan dapatkan potongan harga 5% untuk servis berikutnya setelah menunjukkan bukti!</p>
+                    <a href="https://share.google/ewpbrzKqZSgP9Qf5N" target="_blank" rel="noopener noreferrer" class="btn btn-success">
+                        <i class="bi bi-google me-2"></i>Beri Review Sekarang
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Kontak & Footer -->
+        <section id="kontak" class="bg-white">
+            <div class="container">
+                 <h2 class="section-title reveal">Hubungi Kami</h2>
+                 <div class="row gy-4">
+                    <div class="col-lg-6 reveal">
+                        <div class="h-100">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.979899388147!2d102.27378387496666!3d-2.06785899787114!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2e166a50689e49%3A0x8285a82e968f2e24!2sSTKIP%20YPM%20Bangko!5e0!3m2!1sid!2sid!4v1721575235319!5m2!1sid!2sid" width="100%" height="100%" style="border:0; border-radius: 15px; min-height: 350px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                     <div class="col-lg-6 reveal">
+                        <h4>Informasi Kontak</h4>
+                        <p>Kami siap melayani Anda. Kunjungi toko kami atau hubungi kami melalui detail di bawah ini.</p>
+                        <div class="d-flex align-items-start mb-3">
+                            <i class="bi bi-geo-alt-fill fs-4 me-3 text-primary"></i>
+                            <div><strong>Alamat:</strong><br>Jl. Jendral Sudirman Km.02, (Depan Kampus STKIP, Pematang Kandis, Bangko, Kab. Merangin, Jambi 37314</div>
+                        </div>
+                         <div class="d-flex align-items-start mb-3">
+                            <i class="bi bi-telephone-fill fs-4 me-3 text-primary"></i>
+                            <div><strong>Telepon:</strong><br>0852-6643-0121</div>
+                        </div>
+                         <div class="d-flex align-items-start mb-3">
+                            <i class="bi bi-envelope-fill fs-4 me-3 text-primary"></i>
+                            <div><strong>Email:</strong><br>kontak@purimedia.com</div>
+                        </div>
+                     </div>
+                 </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-lg-4 col-md-12">
+                    <h5>Tentang Puri Media</h5>
+                    <p>Puri Media Computer adalah toko dan pusat layanan komputer dan barang elektronik di Bangko, Jambi yang menyediakan produk berkualitas dan solusi IT inovatif sejak tahun 2000. Kami juga merupakan service center resmi ASUS di Bangko.</p>
+                </div>
+                <div class="col-lg-2 col-6">
+                    <h5>Tautan Cepat</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#produk">Produk</a></li>
+                        <li><a href="#servis">Servis</a></li>
+                        <li><a href="#testimoni">Testimoni</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-6">
+                    <h5>Layanan</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Jual Beli Laptop</a></li>
+                        <li><a href="#">Servis Resmi ASUS</a></li>
+                        <li><a href="#">Servis Hardware</a></li>
+                        <li><a href="#">Aksesoris</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <h5>Langganan Newsletter</h5>
+                    <p>Dapatkan info promo dan tips teknologi terbaru dari kami.</p>
+                    <form id="newsletterForm" class="d-flex">
+                        <input type="email" id="newsletterEmail" class="form-control me-2" placeholder="Email Anda" required>
+                        <button type="submit" class="btn btn-primary">Daftar</button>
+                    </form>
+                    <div class="social-icons mt-4">
+                        <a href="https://wa.me/6285266430121" target="_blank" rel="noopener noreferrer" class="text-white"><i class="bi bi-whatsapp"></i></a>
+                        <a href="https://www.facebook.com/PuriMediaComputer" target="_blank" rel="noopener noreferrer" class="text-white"><i class="bi bi-facebook"></i></a>
+                        <a href="https://www.tokopedia.com/purimedia" target="_blank" rel="noopener noreferrer" class="text-white"><i class="bi bi-bag"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright text-center">
+            &copy; 2025 MUHAMMAD MULKAN'AZHIM | NIM: 24.12.3437 | All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- Service Request Detail Modal -->
+    <div class="modal fade" id="serviceDetailModal" tabindex="-1" aria-labelledby="serviceDetailModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="serviceDetailModalLabel">Detail Keluhan</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p><strong>Nama Pelanggan:</strong> <span id="modal-customer-name"></span></p>
+            <p><strong>Email:</strong> <span id="modal-customer-email"></span></p>
+            <p><strong>Kategori:</strong> <span id="modal-service-category"></span></p>
+            <hr>
+            <p><strong>Keluhan:</strong></p>
+            <p id="modal-complaint-detail"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // --- State Aplikasi ---
+        let isAdminLoggedIn = false;
+
+        // --- Data Dummy ---
+        const products = [
+            { id: 1, name: 'Servis Resmi ASUS', category: 'servis-asus', img: 'https://i.pinimg.com/736x/dc/14/7a/dc147a75b3bd78858a4cbade289f5c4f.jpg', desc: 'Penanganan klaim garansi dan perbaikan resmi untuk semua produk ASUS.' },
+            { id: 2, name: 'Laptop ASUS ROG', category: 'laptop', img: 'https://www.asus.com/media/Odin/Websites/global/ProductLine/20200824120814.jpg', desc: 'Performa tinggi untuk gaming dan desain grafis.' },
+            { id: 3, name: 'Printer Epson L3210', category: 'printer', img: 'https://javamedia.co.id/wp-content/uploads/2022/07/jual-printer-epson-l3210-print-scan-copy-modif-pabrik-denpasar-bali.jpg', desc: 'Cetak, pindai, dan salin dengan satu perangkat efisien.' },
+            { id: 4, name: 'Servis Umum PC/Laptop', category: 'servis-umum', img: 'https://static.vecteezy.com/system/resources/previews/004/231/739/non_2x/computer-software-and-hardware-vector.jpg', desc: 'Diagnosa masalah hardware dan software secara akurat.' },
+            { id: 5, name: 'Servis Printer', category: 'servis-umum', img: 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//82/MTA-2100338/canon_canon-pixma-g3010-multifunction-inkjet-printer_full02.jpg', desc: 'Perbaikan printer macet, hasil cetak buruk, dan lainnya.' },
+            { id: 6, name: 'Laptop Lenovo Ideapad', category: 'laptop', img: 'https://api.vitech.asia/storage/produk/64a7b431c265e_IdeaPad_1_14ADA7_CT1_01_1703395189.png', desc: 'Tangguh, aman, dan dapat diandalkan untuk pekerjaan.' },
+            { id: 7, name: 'Upgrade RAM & SSD', category: 'servis-umum', img: 'https://www.digitaltrends.com/wp-content/uploads/2024/08/memoryssd01.jpg?fit=1500%2C1000&p=1', desc: 'Tingkatkan kecepatan laptop Anda secara signifikan.' },
+            { id: 8, name: 'Deteksi virus & malware', category: 'servis-umum', img: 'https://img.freepik.com/premium-vector/concept-computer-repair-service-vector-illustration_357257-952.jpg', desc: 'Deteksi dan pembersihan virus serta malware untuk menjaga performa dan privasi perangkat' },
+            { id: 9, name: 'Keyboard & Mouse Wireless', category: 'elektronik', img: 'https://datascripmall.id/media/catalog/product/cache/95a5307f46190cd7a50cf0819ebeb220/m/k/mk220_1.jpg', desc: 'Bekerja lebih leluasa tanpa kabel yang mengganggu.' },
+            { id: 10, name: 'Instalasi Software', category: 'servis-umum', img: 'https://img.freepik.com/free-vector/hand-drawn-flat-design-api-illustration_23-2149379500.jpg?semt=ais_hybrid&w=740', desc: 'Instalasi OS Windows, Office, dan aplikasi desain dengan cepat.' }
+        ];
+
+        const testimonials = [
+            { name: 'Budi Santoso', review: 'Klaim garansi laptop ASUS di sini prosesnya cepat dan transparan. Mantap!', rating: 5 },
+            { name: 'Citra Lestari', review: 'Printer kantor yang rusak kembali normal setelah diservis di sini. Pelayanannya ramah!', rating: 5 },
+            { name: 'Ahmad Dahlan', review: 'Beli laptop dapat penjelasan yang detail dan jujur. Sangat membantu dalam memilih.', rating: 4 },
+            { name: 'Dewi Anggraini', review: 'Harga produknya kompetitif dan original. Proses klaim garansi juga mudah.', rating: 4 },
+            { name: 'Eko Prasetyo', review: 'Teknisinya handal, masalah blue screen di PC saya selesai dalam sekejap.', rating: 5 },
+            { name: 'Rina Marlina', review: 'Pemasangan CCTV di toko saya hasilnya rapi dan gambarnya jernih. Terima kasih Puri Media!', rating: 5 },
+            { name: 'Joko Susilo', review: 'Instal ulang Windows dan aplikasi cuma sebentar, tidak perlu nunggu lama. Sangat efisien.', rating: 5 },
+            { name: 'Sari Puspita', review: 'Akhirnya dapat laptop yang pas buat kuliah, harganya juga masuk budget. Pelayanannya oke banget!', rating: 4 }
+        ];
+
+        let newsletterSubscribers = [
+            { date: '21/07/2025', email: 'anton.medan@gmail.com' },
+            { date: '20/07/2025', email: 'rahmat.h@gmail.com' },
+            { date: '19/07/2025', email: 'sinta.j@gmail.com' },
+            { date: '18/07/2025', email: 'heru.p@gmail.com' },
+            { date: '17/07/2025', email: 'liana@gmail.com' },
+        ];
+
+        let serviceRequests = [
+            { id: 6, date: '21/07/2025', name: 'Budi Santoso', email: 'budi.s@gmail.com', category: 'Servis Laptop/PC (Non-Garansi)', complaint: 'Laptop mati total tidak mau menyala sama sekali setelah terkena tumpahan kopi.' },
+            { id: 5, date: '21/07/2025', name: 'Citra Lestari', email: 'citra.l@gmail.com', category: 'Servis Printer', complaint: 'Hasil cetak bergaris dan warnanya pudar, sudah coba head cleaning tapi tidak berhasil.' },
+            { id: 4, date: '20/07/2025', name: 'Ahmad Dahlan', email: 'ahmad.d@gmail.com', category: 'Instalasi Software', complaint: 'Minta tolong install Microsoft Office 2021 dan Adobe Photoshop di laptop baru.' },
+            { id: 3, date: '19/07/2025', name: 'Dewi Anggraini', email: 'dewi.a@gmail.com', category: 'Servis Resmi ASUS (Garansi)', complaint: 'Keyboard laptop ASUS saya beberapa tombolnya (A, S, D, F) tidak berfungsi. Masih dalam masa garansi.' },
+            { id: 2, date: '18/07/2025', name: 'Eko Prasetyo', email: 'eko.p@gmail.com', category: 'Servis Laptop/PC (Non-Garansi)', complaint: 'Komputer sering blue screen (BSOD) saat bermain game berat seperti Valorant. Sudah coba install ulang driver VGA.' },
+            { id: 1, date: '17/07/2025', name: 'Rina Marlina', email: 'rina.m@gmail.com', category: 'Servis Elektronik Lain', complaint: 'Speaker aktif merk Simbadda mati sebelah, yang kanan tidak ada suaranya.' }
+        ];
+
+
+        // --- Elemen DOM ---
+        const loginAdminButton = document.getElementById('loginAdminButton');
+        const loginCollapseEl = document.getElementById('loginCollapse');
+        const loginCollapse = new bootstrap.Collapse(loginCollapseEl, { toggle: false });
+        const adminDashboard = document.getElementById('adminDashboard');
+        const serviceDetailModalEl = document.getElementById('serviceDetailModal');
+        const serviceDetailModal = new bootstrap.Modal(serviceDetailModalEl);
+
+        // --- Fungsi Pembantu ---
+        function showAlert(message, type = 'success') {
+            const alertContainer = document.getElementById('alert-container');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type} alert-dismissible fade show`;
+            alert.role = 'alert';
+            alert.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+            alertContainer.appendChild(alert);
+
+            setTimeout(() => {
+                alert.classList.remove('show');
+                setTimeout(() => alert.remove(), 150);
+            }, 5000);
+        }
+
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                obj.innerHTML = value.toLocaleString('id-ID');
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+        
+        function getFormattedDate() {
+            const today = new Date();
+            const day = String(today.getDate()).padStart(2, '0');
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const year = today.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        // --- Logika Utama ---
+        function updateLoginStateUI() {
+            if (isAdminLoggedIn) {
+                loginAdminButton.innerHTML = `<i class="bi bi-box-arrow-right"></i> Keluar`;
+                loginAdminButton.classList.remove('btn-outline-light', 'btn-outline-dark');
+                loginAdminButton.classList.add('btn-danger');
+                loginCollapse.hide();
+                adminDashboard.classList.remove('d-none');
+                adminDashboard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                loginAdminButton.innerHTML = `<i class="bi bi-person-circle"></i> Login Admin`;
+                loginAdminButton.classList.remove('btn-danger');
+                if (window.scrollY > 50) {
+                    loginAdminButton.classList.add('btn-outline-dark');
+                } else {
+                    loginAdminButton.classList.add('btn-outline-light');
+                }
+                adminDashboard.classList.add('d-none');
+            }
+        }
+
+        function handleLoginButtonClick() {
+            if (isAdminLoggedIn) {
+                isAdminLoggedIn = false;
+                showAlert('Anda telah berhasil keluar.', 'info');
+                updateLoginStateUI();
+            } else {
+                loginCollapse.toggle();
+            }
+        }
+
+        loginAdminButton.addEventListener('click', handleLoginButtonClick);
+
+        // --- Efek Scroll Navbar ---
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            const isScrolled = window.scrollY > 50;
+            navbar.classList.toggle('scrolled', isScrolled);
+            navbar.classList.toggle('navbar-light', isScrolled);
+            navbar.classList.toggle('navbar-dark', !isScrolled);
+            
+            if (!isAdminLoggedIn) {
+                loginAdminButton.classList.toggle('btn-outline-dark', isScrolled);
+                loginAdminButton.classList.toggle('btn-outline-light', !isScrolled);
+            }
+        });
+
+        // --- Animasi Reveal on Scroll ---
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        window.addEventListener('scroll', reveal);
+        reveal();
+
+        // --- Render Produk ---
+        const productList = document.getElementById('product-list');
+        function renderProducts(filter = 'all') {
+            productList.innerHTML = '';
+            const filteredProducts = (filter === 'all')
+                ? products
+                : products.filter(p => p.category === filter);
+
+            if (filteredProducts.length === 0) {
+                productList.innerHTML = `<p class="text-center col-12">Produk atau layanan tidak ditemukan.</p>`;
+                return;
+            }
+
+            filteredProducts.forEach(product => {
+                const productDiv = document.createElement('div');
+                productDiv.className = 'col-lg-3 col-md-6 product-item';
+                productDiv.dataset.category = product.category;
+                
+                let cardClass = 'card h-100 product-card';
+                if (product.category === 'servis-asus') {
+                    cardClass += ' asus-service-card';
+                }
+
+                productDiv.innerHTML = `
+                    <div class="${cardClass}">
+                        <img src="${product.img}" class="card-img-top" alt="${product.name}">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">${product.name}</h5>
+                            <p class="card-text">${product.desc}</p>
+                            <a href="#" class="btn btn-outline-primary mt-auto">Lihat Detail</a>
+                        </div>
+                    </div>
+                `;
+                productList.appendChild(productDiv);
+                setTimeout(() => productDiv.classList.add('reveal', 'active'), 100);
+            });
+        }
+        renderProducts();
+
+        // --- Filter Produk ---
+        const filterButtonsContainer = document.getElementById('filter-buttons');
+        const filterButtons = filterButtonsContainer.querySelectorAll('.btn');
+        filterButtonsContainer.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                const filter = e.target.dataset.filter;
+                
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('btn-primary');
+                    btn.classList.add('btn-outline-primary');
+                });
+                e.target.classList.add('btn-primary');
+                e.target.classList.remove('btn-outline-primary');
+
+                renderProducts(filter);
+            }
+        });
+
+        // --- Render Testimoni ---
+        const testimonialBody = document.getElementById('testimonial-body');
+        function renderTestimonials(limit) {
+            testimonialBody.innerHTML = '';
+            const testimonialsToRender = testimonials.sort((a, b) => b.rating - a.rating).slice(0, limit);
+
+            testimonialsToRender.forEach(t => {
+                const row = document.createElement('tr');
+                let ratingStars = '';
+                for (let i = 0; i < 5; i++) {
+                    ratingStars += `<i class="bi ${i < t.rating ? 'bi-star-fill' : 'bi-star'}"></i>`;
+                }
+                row.innerHTML = `
+                    <td>${t.name}</td>
+                    <td class="text-start">${t.review}</td>
+                    <td class="rating text-nowrap">${ratingStars}</td>
+                `;
+                testimonialBody.appendChild(row);
+            });
+        }
+        renderTestimonials(5); // Panggil pertama kali dengan limit 5
+
+
+        // --- Render Admin Dashboard ---
+        function renderAdminDashboard() {
+            const totalVisitors = 284;
+            const sumatraVisitors = Math.floor(totalVisitors * 0.9);
+            const otherVisitors = totalVisitors - sumatraVisitors;
+            const sumatraPercentage = ((sumatraVisitors / totalVisitors) * 100).toFixed(1);
+            const otherPercentage = ((otherVisitors / totalVisitors) * 100).toFixed(1);
+
+            // Animate Stat Cards
+            animateValue(document.getElementById('total-visitors-value'), 0, totalVisitors, 1500);
+            animateValue(document.getElementById('sumatra-visitors-value'), 0, sumatraVisitors, 1500);
+            animateValue(document.getElementById('newsletter-subs-value'), 0, newsletterSubscribers.length, 1500);
+            animateValue(document.getElementById('service-reqs-value'), 0, serviceRequests.length, 1500);
+            
+            // Render Visitor Chart
+            const chartContainer = document.getElementById('visitor-chart');
+            chartContainer.innerHTML = `
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span><i class="bi bi-square-fill text-primary me-2"></i> Sumatra</span>
+                        <span class="fw-bold">${sumatraVisitors.toLocaleString('id-ID')} Pengunjung</span>
+                    </div>
+                    <div class="progress" style="height: 25px;">
+                        <div class="progress-bar" role="progressbar" style="width: ${sumatraPercentage}%;" aria-valuenow="${sumatraPercentage}" aria-valuemin="0" aria-valuemax="100">${sumatraPercentage}%</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="d-flex justify-content-between">
+                        <span><i class="bi bi-square-fill text-success me-2"></i> Luar Sumatra</span>
+                        <span class="fw-bold">${otherVisitors.toLocaleString('id-ID')} Pengunjung</span>
+                    </div>
+                    <div class="progress" style="height: 25px;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: ${otherPercentage}%;" aria-valuenow="${otherPercentage}" aria-valuemin="0" aria-valuemax="100">${otherPercentage}%</div>
+                    </div>
+                </div>
+            `;
+            
+            // Render Newsletter Subscribers Table
+            const newsletterTableBody = document.getElementById('newsletter-table-body');
+            newsletterTableBody.innerHTML = '';
+            newsletterSubscribers.forEach(sub => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${sub.date}</td>
+                    <td>${sub.email}</td>
+                    <td><a href="mailto:${sub.email}" class="btn btn-sm btn-outline-primary"><i class="bi bi-envelope"></i></a></td>
+                `;
+                newsletterTableBody.appendChild(row);
+            });
+
+            renderServiceRequests(5);
+            document.getElementById('load-more-requests').style.display = serviceRequests.length > 5 ? 'inline-block' : 'none';
+        }
+
+        // Render Service Requests Table
+        function renderServiceRequests(limit) {
+            const serviceTableBody = document.getElementById('service-requests-table-body');
+            serviceTableBody.innerHTML = '';
+            const requestsToShow = limit ? serviceRequests.slice(0, limit) : serviceRequests;
+
+            if (requestsToShow.length === 0) {
+                serviceTableBody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">Belum ada pengajuan servis.</td></tr>`;
+                return;
+            }
+
+            requestsToShow.forEach(req => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${req.date}</td>
+                    <td>${req.name}</td>
+                    <td>${req.email}</td>
+                    <td>${req.category}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-info view-detail-btn" data-id="${req.id}">
+                            <i class="bi bi-search"></i> Detail
+                        </button>
+                    </td>
+                `;
+                serviceTableBody.appendChild(row);
+            });
+        }
+
+        // Event listener for "Lihat Semua" button
+        document.getElementById('load-more-requests').addEventListener('click', function() {
+            renderServiceRequests();
+            this.style.display = 'none';
+        });
+
+        // Event listener for detail buttons
+        document.getElementById('service-requests-table-body').addEventListener('click', function(e) {
+            const button = e.target.closest('.view-detail-btn');
+            if (button) {
+                const requestId = parseInt(button.dataset.id);
+                const request = serviceRequests.find(r => r.id === requestId);
+                if (request) {
+                    document.getElementById('modal-customer-name').textContent = request.name;
+                    document.getElementById('modal-customer-email').textContent = request.email;
+                    document.getElementById('modal-service-category').textContent = request.category;
+                    document.getElementById('modal-complaint-detail').textContent = request.complaint;
+                    serviceDetailModal.show();
+                }
+            }
+        });
+
+
+        // --- Simulasi Login Admin ---
+        const loginForm = document.getElementById('loginForm');
+        loginForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (email === 'admin@puri.com' && password === '1234') {
+                showAlert('Login berhasil! Menampilkan Dasbor Admin.', 'success');
+                isAdminLoggedIn = true;
+                loginForm.reset();
+                renderAdminDashboard();
+                updateLoginStateUI();
+            } else {
+                showAlert('Login gagal! Email atau password salah.', 'danger');
+            }
+        });
+
+        // --- Validasi Form Servis ---
+        const serviceForm = document.getElementById('serviceForm');
+        serviceForm.addEventListener('submit', event => {
+            event.preventDefault();
+            event.stopPropagation();
+            if (serviceForm.checkValidity()) {
+                const newRequest = {
+                    id: serviceRequests.length + 1,
+                    date: getFormattedDate(),
+                    name: document.getElementById('nama').value,
+                    email: document.getElementById('email').value,
+                    category: document.getElementById('kategori').value,
+                    complaint: document.getElementById('keluhan').value
+                };
+
+                serviceRequests.unshift(newRequest);
+                
+                showAlert('Permintaan Anda telah terkirim! Tim kami akan segera menghubungi Anda.', 'success');
+                serviceForm.reset();
+                serviceForm.classList.remove('was-validated');
+
+                if (isAdminLoggedIn) {
+                    renderAdminDashboard();
+                }
+
+            } else {
+                showAlert('Gagal mengirim. Mohon periksa kembali isian form Anda.', 'danger');
+            }
+            serviceForm.classList.add('was-validated');
+        }, false);
+
+        // --- Validasi Form Newsletter ---
+        const newsletterForm = document.getElementById('newsletterForm');
+        newsletterForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const emailInput = document.getElementById('newsletterEmail');
+            if (emailInput.checkValidity()) {
+                const newEmail = emailInput.value;
+                const newDate = getFormattedDate();
+                showAlert(`Terima kasih! Email ${newEmail} telah terdaftar.`, 'success');
+                
+                newsletterSubscribers.unshift({ date: newDate, email: newEmail });
+                
+                if(isAdminLoggedIn) {
+                    renderAdminDashboard();
+                }
+
+                newsletterForm.reset();
+            } else {
+                showAlert('Mohon masukkan format email yang valid.', 'warning');
+            }
+        });
+
+    });
+    </script>
+</body>
+</html>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -262,14 +261,6 @@
             border-left: 5px solid var(--primary-color);
         }
 
-        /* --- Login Admin --- */
-        .form-signin {
-            background: #fff;
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-        }
-
         /* --- Kontak & Footer --- */
         #footer {
             background: linear-gradient(135deg, #0a183d, #0d6efd);
@@ -329,36 +320,12 @@
                         <li class="nav-item"><a class="nav-link" href="#testimoni">Testimoni</a></li>
                         <li class="nav-item"><a class="nav-link" href="#kontak">Kontak</a></li>
                     </ul>
-                    <button id="loginAdminButton" class="btn btn-outline-light ms-lg-3" type="button">
+                    <button id="loginAdminButton" class="btn btn-outline-light ms-lg-3" type="button" data-bs-toggle="modal" data-bs-target="#loginAdminModal">
                         <i class="bi bi-person-circle"></i> Login Admin
                     </button>
                 </div>
             </div>
         </nav>
-
-        <!-- Admin Login Collapse -->
-        <div class="collapse" id="loginCollapse">
-            <div class="bg-dark p-4">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-md-6 col-lg-4">
-                            <form id="loginForm" class="form-signin text-dark">
-                                <h4 class="mb-3 fw-normal text-center">Login Admin</h4>
-                                <div class="form-floating mb-2">
-                                    <input type="email" class="form-control" id="loginEmail" placeholder="name@gmail.com" required>
-                                    <label for="loginEmail">Alamat Email</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="password" class="form-control" id="loginPassword" placeholder="Password" required>
-                                    <label for="loginPassword">Password</label>
-                                </div>
-                                <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </header>
 
     <main>
@@ -710,6 +677,31 @@
         </div>
     </footer>
 
+    <!-- Login Admin Modal -->
+    <div class="modal fade" id="loginAdminModal" tabindex="-1" aria-labelledby="loginAdminModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginAdminModalLabel">Login Admin</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="form-floating mb-2">
+                            <input type="email" class="form-control" id="loginEmail" placeholder="name@gmail.com" required>
+                            <label for="loginEmail">Alamat Email</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="loginPassword" placeholder="Password" required>
+                            <label for="loginPassword">Password</label>
+                        </div>
+                        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Service Request Detail Modal -->
     <div class="modal fade" id="serviceDetailModal" tabindex="-1" aria-labelledby="serviceDetailModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
@@ -789,11 +781,11 @@
 
         // --- Elemen DOM ---
         const loginAdminButton = document.getElementById('loginAdminButton');
-        const loginCollapseEl = document.getElementById('loginCollapse');
-        const loginCollapse = new bootstrap.Collapse(loginCollapseEl, { toggle: false });
         const adminDashboard = document.getElementById('adminDashboard');
         const serviceDetailModalEl = document.getElementById('serviceDetailModal');
         const serviceDetailModal = new bootstrap.Modal(serviceDetailModalEl);
+        const loginAdminModalEl = document.getElementById('loginAdminModal');
+        const loginAdminModal = new bootstrap.Modal(loginAdminModalEl);
 
         // --- Fungsi Pembantu ---
         function showAlert(message, type = 'success') {
@@ -841,7 +833,9 @@
                 loginAdminButton.innerHTML = `<i class="bi bi-box-arrow-right"></i> Keluar`;
                 loginAdminButton.classList.remove('btn-outline-light', 'btn-outline-dark');
                 loginAdminButton.classList.add('btn-danger');
-                loginCollapse.hide();
+                // Hapus atribut pemicu modal saat login
+                loginAdminButton.removeAttribute('data-bs-toggle');
+                loginAdminButton.removeAttribute('data-bs-target');
                 adminDashboard.classList.remove('d-none');
                 adminDashboard.scrollIntoView({ behavior: 'smooth', block: 'start' });
             } else {
@@ -852,6 +846,9 @@
                 } else {
                     loginAdminButton.classList.add('btn-outline-light');
                 }
+                // Tambahkan kembali atribut pemicu modal saat logout
+                loginAdminButton.setAttribute('data-bs-toggle', 'modal');
+                loginAdminButton.setAttribute('data-bs-target', '#loginAdminModal');
                 adminDashboard.classList.add('d-none');
             }
         }
@@ -861,9 +858,8 @@
                 isAdminLoggedIn = false;
                 showAlert('Anda telah berhasil keluar.', 'info');
                 updateLoginStateUI();
-            } else {
-                loginCollapse.toggle();
             }
+            // Jika belum login, modal akan terbuka secara otomatis oleh atribut data-bs-*
         }
 
         loginAdminButton.addEventListener('click', handleLoginButtonClick);
@@ -1090,11 +1086,17 @@
             const password = document.getElementById('loginPassword').value;
 
             if (email === 'admin@puri.com' && password === '1234') {
-                showAlert('Login berhasil! Menampilkan Dasbor Admin.', 'success');
-                isAdminLoggedIn = true;
-                loginForm.reset();
-                renderAdminDashboard();
-                updateLoginStateUI();
+                loginAdminModal.hide(); // Sembunyikan modal
+                
+                // Beri sedikit waktu agar modal hilang sebelum menampilkan alert dan scroll
+                setTimeout(() => {
+                    showAlert('Login berhasil! Menampilkan Dasbor Admin.', 'success');
+                    isAdminLoggedIn = true;
+                    loginForm.reset();
+                    renderAdminDashboard();
+                    updateLoginStateUI();
+                }, 400);
+
             } else {
                 showAlert('Login gagal! Email atau password salah.', 'danger');
             }
